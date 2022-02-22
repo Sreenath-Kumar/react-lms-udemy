@@ -1,13 +1,17 @@
-import SubHeader from "./subheader";
 import Header from "./header";
-import Contents from "./content";
-import Cart from "./cart";
-import SubFooter from "./subfooter";
 import Footer from "./footer";
 import courseData from "./course_data.json";
 import { useState } from "react";
+import Home from "./pages/home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/login";
+import SignUp from "./pages/signup";
+import Cart from "./cart";
+import database from "../firebase";
+import { setDoc, doc } from "firebase/firestore";
 
 function App() {
+  console.log(database);
   const [cartItems, setCartItems] = useState([]);
   const [isactive, setisactive] = useState(false);
 
@@ -20,6 +24,30 @@ function App() {
   };
 
   let data = courseData.courses;
+  async function addItems(item) {
+    var ref = doc(database, "course-data", item.id);
+    const docRef = await setDoc(ref, {
+      title: item.name,
+      img: item.img,
+      author: item.author,
+      des: item.des,
+      lectures: item.lectures,
+      duration: item.duration,
+      level: item.level,
+      ratings: item.ratings,
+      regularPrice: item.regularPrice,
+      sellingPrice: item.sellingPrice,
+    })
+      .then(() => {
+        console.log("added successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  data.forEach((item) => {
+    addItems(item);
+  });
 
   const clickedItem = (e) => {
     let x = e.target.id;
@@ -52,19 +80,25 @@ function App() {
   };
 
   return (
-    <>
-      <Header cartItemNumber={cartItems.length} showcart={toggleFn} />
-      <SubHeader />
-      <Contents data={data} clickedItem={clickedItem} />
-      <Cart
-        isactive={isactive}
-        closeCart={closeCart}
-        cartItems={cartItems}
-        removeFromCart={removeFromCart}
-      />
-      <SubFooter />
-      <Footer />
-    </>
+    <BrowserRouter>
+      <>
+        <Header cartItemNumber={cartItems.length} showcart={toggleFn} />
+        <Routes>
+          <Route path="/" index element={<Home data={data} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+        </Routes>
+        <Cart
+          data={data}
+          clickedItem={clickedItem}
+          isactive={isactive}
+          closeCart={closeCart}
+          cartItems={cartItems}
+          removeFromCart={removeFromCart}
+        />
+        <Footer />
+      </>
+    </BrowserRouter>
   );
 }
 

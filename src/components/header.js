@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Header(props) {
   return (
     <>
@@ -5,14 +7,14 @@ function Header(props) {
         <div className="nav-content">
           <div className="three-divs">
             <div className="img-div">
-              <a href="#nav" className="one">
+              <Link to="/" className="one">
                 <img
                   src="https://www.udemy.com/staticx/udemy/images/v6/logo-coral.svg"
                   alt="udemy logo"
                   width="110px"
                   height="31.89px"
                 />
-              </a>
+              </Link>
             </div>
 
             <div className="cate-dropdown ">
@@ -51,9 +53,12 @@ function Header(props) {
               </button>
               <div className="cart-nmbr">{props.cartItemNumber}</div>
             </div>
-
-            <button className="btn lg-btn lg-btn-o">Log In</button>
-            <button className="btn  signin-btn">Sign Up</button>
+            <Link to="/login">
+              <button className="btn lg-btn lg-btn-o">Log In</button>
+            </Link>
+            <Link to="/signup">
+              <button className="btn  signin-btn">Sign Up</button>
+            </Link>
           </div>
         </div>
       </div>
