@@ -3,8 +3,7 @@ import CartItem from "./cart-list-item";
 function Cart(props) {
   let cartItems = props.cartItems;
   let price = cartItems.reduce(
-    (total, prod) =>
-      total + parseFloat(prod.sellingPrice) * parseFloat(prod.quantity),
+    (total, prod) => total + parseFloat(prod.sellingPrice),
     0
   );
 
@@ -14,7 +13,7 @@ function Cart(props) {
       className={props.isactive ? "cart-wrapper cart-visible" : "cart-wrapper"}
     >
       <div className="cart-panel">
-        <header className="cart-header">
+        <div className="cart-header">
           <div className="cart-tabs">
             <ul className="cart-tab-table">
               <li className="cart-tab-cell selected">
@@ -26,7 +25,7 @@ function Cart(props) {
             </ul>
             <span className="tab-selector"></span>
           </div>
-        </header>
+        </div>
         <div className="cart-content" style={{ height: "50%" }}>
           <div className="cart-sections">
             <section className="cart-section nano has-scrollbar">
@@ -40,14 +39,12 @@ function Cart(props) {
                       key={index}
                       id={item.id}
                       img={item.img}
-                      name={item.name}
+                      name={item.title}
                       sellingPrice={item.sellingPrice}
                       removeCartItem={props.removeFromCart}
-                      quantity={item.quantity}
                     />
                   );
                 })}
-                <li className="cart-list-footer"></li>
               </ul>
               <div className="nano-pane" style={{ display: "block" }}>
                 <div

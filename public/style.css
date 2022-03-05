@@ -11,11 +11,13 @@ body {
   padding: 0px;
   box-sizing: border-box;
   position: relative;
+  overflow-x: hidden;
 }
 #root {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  overflow-x: hidden;
 }
 .cart-btn {
   position: relative;
@@ -111,7 +113,7 @@ body {
 .btn {
   color: #505763;
   padding: 12px;
-  border: none;
+  border: 1px solid transparent;
   background-color: inherit;
   border-radius: 2px;
   margin-left: 5px;
@@ -243,8 +245,9 @@ body {
 }
 
 .cart {
-  /* background-color: palegoldenrod;; */
-  border: 1px solid #dddee0;
+  background-color: #f7f8fa;
+  border: 1px solid #f7f8fa;
+  border-radius: 5px;
   display: flex;
   margin-bottom: 30px;
   height: 150px;
@@ -410,7 +413,6 @@ a[href="#t"]:hover {
 }
 
 .cart-imag-div {
-  /* background-image: url("https://udemy-images.udemy.com/user/75x75/5487312_0554.jpg"); */
   background-repeat: no-repeat;
   background-size: contain;
   width: 75px;
@@ -581,43 +583,26 @@ footer {
 .ab-li {
   display: inline-block;
   border: 1px solid #ddd;
-  border-right: 0px;
+  border-right: 1px solid transparent;
   padding: 10px 15px 10px 15px;
   background: none;
   color: #007791;
 }
-.ab-emoji {
-  font-size: 27px;
-  padding: 1px 5px 0;
-  cursor: pointer;
-}
-.emoji-active {
-  background-color: #f2f3f5;
-}
-.ab-emoji:hover {
-  background-color: #f2f3f5;
-}
 
-.ab-li:first-child {
+.paginition-active {
   border-radius: 2px 0px 0px 2px;
   color: #fff;
-  background-color: #007791;
+  background-color: #007791 !important;
   border-color: #007791;
 }
 
 .ab-li:last-child {
   border-right: 1px solid #ddd;
   border-radius: 0px 2px 2px 0px;
+  color: #007791;
 }
 
-.ab-li:nth-child(5) {
-  color: #ddd;
-}
-
-.ab-li:nth-child(2):hover,
-.ab-li:nth-child(3):hover,
-.ab-li:nth-child(4):hover,
-.ab-li:nth-child(6):hover {
+.ab-li:hover {
   border-color: #007791;
   background-color: #e6f2f5;
   border-right: 1px solid #007791;
@@ -1337,4 +1322,23 @@ form a {
 }
 .wrapper .down span {
   color: #b8b7be;
+}
+.user-avatar {
+  height: 40px;
+  width: 40px;
+  padding: 5px;
+  border: 1px solid #505763;
+  border-radius: 50px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+.btn-wishlist {
+  font-size: 24px;
+  color: #505763;
+  padding: 12px;
+  border: 1px solid transparent;
+  background-color: inherit;
+  margin-left: 5px;
+  margin-right: 10px;
+  cursor: pointer;
 }

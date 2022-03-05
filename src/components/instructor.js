@@ -8,7 +8,7 @@ function intructor() {
               className="cart-imag-div"
               style={{
                 backgroundImage: `url(
-                  "https://udemy-images.udemy.com/user/75x75/5487312_0554.jpg"
+                  "/"
                 )`,
               }}
             ></div>

@@ -1,5 +1,25 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { auth } from "../../firebase";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+
 function Login() {
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPass, setLoginPass] = useState("");
+
+  const login = async () => {
+    try {
+      const userAuth = await signInWithEmailAndPassword(
+        auth,
+        loginEmail,
+        loginPass
+      );
+      alert("Registration Successful");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
     <>
       <div className="login-body">
@@ -18,6 +38,9 @@ function Login() {
                   type="text"
                   id="email"
                   placeholder="youremail@gmail.com"
+                  onChange={(e) => {
+                    setLoginEmail(e.target.value);
+                  }}
                 />
                 <i className="fas fa-envelope email"></i>
               </div>
@@ -29,12 +52,15 @@ function Login() {
                   type="text"
                   id="pass"
                   placeholder="6+ strong character"
+                  onChange={(e) => {
+                    setLoginPass(e.target.value);
+                  }}
                 />
                 <i className="fas fa-lock lock"></i>
               </div>
             </div>
             <div className="button">
-              <button className="btn" type="submit">
+              <button className="btn" type="submit" onClick={login}>
                 Sign in
               </button>
             </div>

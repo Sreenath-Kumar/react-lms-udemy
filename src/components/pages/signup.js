@@ -1,6 +1,40 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { auth } from "../../firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 function SignUp() {
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPass, setRegisterPass] = useState("");
+  const [fName, setfName] = useState("");
+  const [lName, setlName] = useState("");
+
+  let navigate = useNavigate();
+
+  const registerUser = async () => {
+    try {
+      const userAuth = await createUserWithEmailAndPassword(
+        auth,
+        registerEmail,
+        registerPass
+      );
+      alert("Registration Successful");
+    } catch (error) {
+      alert(error.message);
+    }
+    try {
+      updateProfile(auth.currentUser, {
+        displayName: fName + " " + lName,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+  const register = () => {
+    registerUser();
+    navigate("/");
+  };
+
   return (
     <div className="signup-body">
       <div className="signup-container">
@@ -19,6 +53,9 @@ function SignUp() {
                   type="text"
                   id="fname"
                   placeholder="Jhon"
+                  onChange={(e) => {
+                    setfName(e.target.value);
+                  }}
                 />
               </div>
               <div className="field-container">
@@ -30,6 +67,9 @@ function SignUp() {
                   type="text"
                   id="lname"
                   placeholder="Doe"
+                  onChange={(e) => {
+                    setlName(e.target.value);
+                  }}
                 />
               </div>
             </div>
@@ -43,6 +83,9 @@ function SignUp() {
                 type="text"
                 id="email"
                 placeholder="youremail@gmail.com"
+                onChange={(e) => {
+                  setRegisterEmail(e.target.value);
+                }}
               />
               <i className="fas fa-envelope email"></i>
             </div>
@@ -50,12 +93,19 @@ function SignUp() {
               <label className="pass" htmlFor="pass">
                 Password
               </label>
-              <input type="text" id="pass" placeholder="6+ strong character" />
+              <input
+                type="text"
+                id="pass"
+                placeholder="6+ strong character"
+                onChange={(e) => {
+                  setRegisterPass(e.target.value);
+                }}
+              />
               <i className="fas fa-lock lock"></i>
             </div>
           </div>
           <div className="button">
-            <button className="btn" type="submit">
+            <button className="btn" type="submit" onClick={register}>
               Create an account
             </button>
           </div>

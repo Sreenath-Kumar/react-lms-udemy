@@ -1,6 +1,7 @@
 import Featured from "./featured-item";
 import Course from "./single-course";
 import Instructor from "./instructor";
+import SubFooter from "./subfooter";
 
 function Contents(props) {
   return (
@@ -12,7 +13,7 @@ function Contents(props) {
               <Course
                 key={index}
                 id={item.id}
-                title={item.name}
+                title={item.title}
                 img={item.img}
                 author={item.author}
                 des={item.des}
@@ -26,6 +27,13 @@ function Contents(props) {
               />
             );
           })}
+          <SubFooter
+            pageNo={props.pageNo}
+            inc={props.inc}
+            dec={props.dec}
+            prev={props.prev}
+            next={props.next}
+          />
           <div className="btm-content">
             <h2 className="box-title">
               Most Popular Instructors in "JavaScript"
