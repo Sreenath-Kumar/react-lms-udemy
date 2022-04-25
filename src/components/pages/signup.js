@@ -1,9 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { auth } from "../../firebase";
+import db, { auth } from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
-function SignUp() {
+function SignUp(props) {
+  console.log("signup render");
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPass, setRegisterPass] = useState("");
   const [fName, setfName] = useState("");
@@ -19,8 +21,12 @@ function SignUp() {
         registerPass
       );
       alert("Registration Successful");
+      await setDoc(doc(db, "user-cart", auth.currentUser.uid), {
+        ...props.CartItems,
+      });
+      navigate("/login");
     } catch (error) {
-      alert(error.message);
+      console.log(error.message);
     }
     try {
       updateProfile(auth.currentUser, {
@@ -32,6 +38,7 @@ function SignUp() {
   };
   const register = () => {
     registerUser();
+
     navigate("/");
   };
 

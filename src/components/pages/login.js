@@ -1,11 +1,23 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { auth } from "../../firebase";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import db, { auth } from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
-function Login() {
+function Login(props) {
+  console.log("login render");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPass, setLoginPass] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let isCancelled = false;
+    const handleChange = () => {};
+    handleChange();
+    return () => {
+      isCancelled = true;
+    };
+  }, [loginEmail, loginPass]);
 
   const login = async () => {
     try {
@@ -14,7 +26,11 @@ function Login() {
         loginEmail,
         loginPass
       );
-      alert("Registration Successful");
+      alert("Login Successful");
+      await setDoc(doc(db, "user-cart", auth.currentUser.uid), {
+        ...props.cartItems,
+      });
+      navigate("/");
     } catch (error) {
       alert(error.message);
     }
@@ -60,7 +76,12 @@ function Login() {
               </div>
             </div>
             <div className="button">
-              <button className="btn" type="submit" onClick={login}>
+              <button
+                className="btn"
+                type="submit"
+                onClick={login}
+                onSubmit={login}
+              >
                 Sign in
               </button>
             </div>

@@ -22,8 +22,9 @@ function CartItem(props) {
           <div className="cart-item-trash">
             <span
               className="item-trash-ic"
-              id={props.id}
-              onClick={props.removeCartItem}
+              onClick={() => {
+                props.removeCartItem(props.id);
+              }}
             ></span>
           </div>
         </div>

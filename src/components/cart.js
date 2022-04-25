@@ -1,7 +1,10 @@
 import CartItem from "./cart-list-item";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
 
 function Cart(props) {
   let cartItems = props.cartItems;
+  const navigate = useNavigate();
   let price = cartItems.reduce(
     (total, prod) => total + parseFloat(prod.sellingPrice),
     0
@@ -9,6 +12,8 @@ function Cart(props) {
 
   return (
     <div
+      onMouseOver={props.showcart}
+      onMouseLeave={props.closeCart}
       id="cart-wrapper"
       className={props.isactive ? "cart-wrapper cart-visible" : "cart-wrapper"}
     >
@@ -58,7 +63,15 @@ function Cart(props) {
         <footer className="cart-footer">
           <div className="cart-checkout-btn">
             <span className="checkout-cart-ic"></span>
-            <span className="checkout-label">Checkout</span>
+
+            <span
+              className="checkout-label"
+              onClick={() => {
+                auth.currentUser ? navigate("/cart") : navigate("/signup");
+              }}
+            >
+              Checkout
+            </span>
           </div>
           <span className="cart-copyright">
             <span onClick={props.closeCart}>close</span>

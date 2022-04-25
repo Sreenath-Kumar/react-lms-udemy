@@ -1,18 +1,15 @@
 import SubHeader from "../subheader";
 import Contents from "../content";
+import React from "react";
 
 function Home(props) {
+  console.log("home render");
   return (
     <>
       <SubHeader />
       <Contents
-        data={props.data}
+        productList={props.productList}
         clickedItem={props.clickedItem}
-        pageNo={props.pageNo}
-        inc={props.inc}
-        dec={props.dec}
-        prev={props.prev}
-        next={props.next}
       />
       {/* <SubFooter data={props.data} /> */}
     </>
