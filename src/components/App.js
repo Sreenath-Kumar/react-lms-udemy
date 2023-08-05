@@ -16,7 +16,6 @@ import { getDoc, getDocs, collection, doc, setDoc } from "firebase/firestore";
 import Checkout from "./pages/checkout";
 
 function App() {
-  console.log("app rendered");
   const [userID, setUserID] = useState("");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [isactive, setisactive] = useState(false);
@@ -29,12 +28,10 @@ function App() {
   const toggleFn = () => {
     // isactive ? setisactive(false) : setisactive(true);
     setisactive(true);
-    console.log("is active updated");
   };
 
   const closeCart = () => {
     setisactive(false);
-    console.log("is active updated");
   };
 
   // ============================================== //
@@ -67,14 +64,11 @@ function App() {
       let notmatch = 0;
       for (let j = 0; j < arr2.length; j++) {
         const ae2 = arr2[j];
-        console.log(ae1, ae2);
         if (ae1.id === ae2.id) {
-          console.log(ae1, "found");
           matchedData.push(ae1);
           break;
         } else {
           notmatch++;
-          console.log("not found", notmatch);
           if (notmatch === arr2.length) {
             unMatchedData.push(ae1);
           }
@@ -88,7 +82,6 @@ function App() {
   // Getting product data from database
   // ============================================== //
   useEffect(() => {
-    console.log("getting product data called");
     async function getItems() {
       const productCol = collection(database, "courses");
       const productSnapshot = await getDocs(productCol);
@@ -106,8 +99,6 @@ function App() {
 
   useEffect(() => {
     if (userID) {
-      console.log("getting cart data called");
-
       async function getCartData() {
         const docSnap = await getDoc(doc(database, "user-cart", userID));
         let snapData = docSnap.data();
@@ -141,8 +132,6 @@ function App() {
   // Adding New data to database
   // ============================================== //
   const addData = async (db, id, item) => {
-    console.log("adding data to user-cart");
-
     await setDoc(doc(db, "user-cart", id), {
       ...item,
     });
@@ -181,7 +170,6 @@ function App() {
   // ============================================== //
   const removeFromCart = (id) => {
     // let clickedCartItem = e.target.id;
-    console.log(id);
     let newarray = cartItems.filter((item) => {
       return item.id !== id;
     });
