@@ -90,7 +90,7 @@ function App() {
   useEffect(() => {
     console.log("getting product data called");
     async function getItems() {
-      const productCol = collection(database, "course-data");
+      const productCol = collection(database, "courses");
       const productSnapshot = await getDocs(productCol);
       const productList = productSnapshot.docs.map((doc) => {
         return { ...doc.data(), id: doc.id };
