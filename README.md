@@ -13,7 +13,6 @@ This Udemy Clone Project is a web application that replicates some of the key fe
 -  [Usage](#usage)
 -  [Project Structure](#project-structure)
 -  [Contributing](#contributing)
--  [License](#license)
 
 ## Technologies Used
 
