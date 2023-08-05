@@ -4,6 +4,8 @@
 
 This Udemy Clone Project is a web application that replicates some of the key features of the popular e-learning platform Udemy. The project focuses on building essential functionalities, such as adding courses to the cart, user authentication (login and signup), cart management (remove from cart), and pagination for course listings. The application uses Firebase for both the database and authentication.
 
+Live Preview : https://udemy-clone-by-sreenath-kumar.netlify.app/
+
 ## Table of Contents
 
 -  [Overview](#overview)
